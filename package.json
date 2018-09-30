@@ -1,0 +1,29 @@
+{
+  "name": "cheerio-mongoose",
+  "version": "1.0.0",
+  "description": "CHeerio mogoose and mongoDB web scraping",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Thorleye/Cheerio-Mongoose.git"
+  },
+  "keywords": [
+    "mongodb",
+    "mongoose",
+    "cheerio"
+  ],
+  "author": "Eric Thorley",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Thorleye/Cheerio-Mongoose/issues"
+  },
+  "homepage": "https://github.com/Thorleye/Cheerio-Mongoose#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "express-handlebars": "^3.0.0",
+    "mongoose": "^5.3.0"
+  }
+}
