@@ -1,22 +1,22 @@
-<h1> Web scraped articles will be displayed here:</h1>
-
 <div class="wrapper">
     <div class="row">
         {{#each articles}}
-        {{#unless saved}}
+        {{#if saved}}
         <div class="col s12 m6 l4">
         <div class="card">
             <div class="card-image">
             <a  href="{{this.url}}"><img src="{{this.img}}" alt="article image">
             <span class="card-title">{{this.title}}</span></a>
-            <a class="btn-floating halfway-fab waves-effect waves-light green"><i class="material-icons">save</i></a>
             </div>
             <div class="card-content">
             <p>{{this.preview}}</p>
             </div>
+            <div>
+                <button>Comment</button><button>Delete</Button>
+            </div>
         </div>
         </div>
-        {{/unless}}
+        {{/if}}
         {{/each}}
     </div>
 </div>

@@ -5,6 +5,7 @@ var  ArticleSchema = new Schema({
     title: {
         type: String,
         required: true,
+        unique: true
     },
     preview: {
         type:String,
@@ -13,6 +14,14 @@ var  ArticleSchema = new Schema({
     url: {
         type: String,
         required: true
+    },
+    img: {
+        type: String,
+        required: true
+    },
+    saved: {
+        type: Boolean,
+        default: false
     }
 });
 

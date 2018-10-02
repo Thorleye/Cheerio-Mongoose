@@ -27,7 +27,9 @@ mongoose.connect(MONGODB_URI , {useNewUrlParser: true});
 
 //routes
 app.get("/", function(req, res){
-    res.render("index")
+    db.Article.find({}, function(err, data){
+        res.render("index", {articles : data})    
+    })
 });
 
 app.get("/scrape", function(req, res){
@@ -35,19 +37,18 @@ app.get("/scrape", function(req, res){
         if (!error && response.statusCode == 200) {
             var $ = cheerio.load(html);
            $(".c-entry-box--compact__body").each(function(i, element){
-               /*var title = $(element).children("h2").text();
-               var preview = $(element).children("p").text();
-               var url = $(element).children("h2").children("a").attr("href"); 
-               console.log(title, preview, url); */
+/*               console.log('---------------------------------------------')
+               console.log($(element).parent("div").children("a").children("div").children("img")); */
                 var result = {};
 
                 result.title = $(this).children("h2").text();
                 result.preview = $(this).children("p").text();
                 result.url = $(this).children("h2").children("a").attr("href");
-                
+                result.img = $(this).parent("div").children("a").children("div").children("img").attr("src");
+                 
                 db.Article.create(result)
                 .then(function(dbArticle){
-                    console.log(dbArticle)
+                   // console.log(dbArticle)
                 })
                 .catch(function(err) {
                     return res.json(err);
@@ -67,6 +68,12 @@ app.get("/articles", function(req, res) {
         .catch(function(err) {
         res.json(err);
         });
+});
+
+app.get("/saved", function(req, res){
+    db.Article.find({saved: true}, function(err, data){
+        res.render("saved", {articles : data});
+    })
 });
       
 
