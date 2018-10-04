@@ -1,10 +1,16 @@
+<div class = "row">
+    <div class="col s12 m6 l3">
+        <a class="waves-effect waves-light btn large" href="/scrape">Scrape !</a>
+    </div>
+</div>
+
 <h1> Web scraped articles will be displayed here:</h1>
 
 <div class="wrapper">
     <div class="row">
         {{#each articles}}
         {{#unless saved}}
-        <div class="col s12 m6 l4" id={{this.id}}>
+        <div class="col s12 m6 l3" id={{this.id}}>
         <div class="card">
             <div class="card-image">
             <a  href="{{this.url}}"><img src="{{this.img}}" alt="article image">

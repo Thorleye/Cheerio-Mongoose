@@ -38,7 +38,9 @@
 		$.ajax({
 			method: "DELETE",
 			url: "/articles/" + thisId
-		})
+		}).then(function(){
+			location.reload();
+		});
 	});
 
 	$(document).on("click", "#saveBtn", function(){
@@ -47,6 +49,8 @@
 		$.ajax({
 			method: "PUT",
 			url: "/articles/" + thisId
+		}).then(function(){
+			location.reload();
 		});
 	})
 })
