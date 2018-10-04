@@ -2,17 +2,18 @@
     <div class="row">
         {{#each articles}}
         {{#if saved}}
-        <div class="col s12 m6 l4">
+        <div class="col s12 m6 l4" id="{{this.id}}">
         <div class="card">
             <div class="card-image">
-            <a  href="{{this.url}}"><img src="{{this.img}}" alt="article image">
+            <a href="{{this.url}}"><img src="{{this.img}}" alt="article image">
             <span class="card-title">{{this.title}}</span></a>
             </div>
             <div class="card-content">
             <p>{{this.preview}}</p>
             </div>
-            <div>
-                <button>Comment</button><button>Delete</Button>
+            <div class="card-action" data-id="{{this.id}}">
+                <a class="waves-effect waves-light btn" id="commentBtn">Comment</a>
+                <a class="waves-effect waves-light btn red" id="deleteBtn">Delete</a>
             </div>
         </div>
         </div>
@@ -20,3 +21,6 @@
         {{/each}}
     </div>
 </div>
+
+<script  src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>

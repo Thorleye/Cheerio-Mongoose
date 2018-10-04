@@ -10,6 +10,7 @@ var bodyParser = require("body-parser")
 
 var app = express();
 var PORT = process.env.PORT || 3000;
+app.use(express.static("public"));
 
 var db = require("./models")
 
@@ -19,6 +20,7 @@ app.set("view engine", "handlebars");
 app.use(logger("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
 
 // If deployed, use the deployed database. Otherwise use the local mongoHeadlines database
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/ringerDB";
@@ -48,7 +50,6 @@ app.get("/scrape", function(req, res){
                  
                 db.Article.create(result)
                 .then(function(dbArticle){
-                   // console.log(dbArticle)
                 })
                 .catch(function(err) {
                     return res.json(err);
@@ -60,6 +61,7 @@ app.get("/scrape", function(req, res){
     })
 });
 
+//grab everthing
 app.get("/articles", function(req, res) {
     db.Article.find({})
         .then(function(dbArticle) {
@@ -70,12 +72,53 @@ app.get("/articles", function(req, res) {
         });
 });
 
+
+//get one article by id //
+app.get("/articles/:id", function(req, res){
+    db.Article.find({_id: req.params.id})
+    .then(function(dbArticle){
+        res.json(dbArticle);
+    })
+    .catch(function(err) {
+        res.json(err);
+    });
+})
+
+//route  for saving article //
+app.put("/articles/:id", function(req, res){
+    db.Article.findOneAndUpdate({_id: req.params.id},{"saved":true})
+    .then(function(){
+        res.render("saved", {articles: data})
+    })
+    .catch(function(err) {
+        res.json(err);
+    });
+})
+
+// get all saved articles //
 app.get("/saved", function(req, res){
     db.Article.find({saved: true}, function(err, data){
         res.render("saved", {articles : data});
     })
 });
-      
+
+//get one saved article//
+app.get("/saved/:id", function(req, res){
+    db.Article.find({_id: req.params.id, "saved":true})
+    .then(function(dbArticle){
+        res.json(dbArticle)
+    })
+    .catch(function(err) {
+        res.json(err);
+    });
+})
+
+//delete path//
+app.delete("/articles/:id", function(req, res){
+    db.Article.remove({_id: req.params.id}, function (err, data){
+        res.render("saved", {articles:data});
+    });
+})
 
 app.listen(PORT, function(){
     console.log("Server listening on: http://localhost: " + PORT)

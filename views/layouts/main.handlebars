@@ -5,7 +5,6 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
 	<head>
@@ -14,7 +13,7 @@
 	<body>
 		<nav>
 		<div class="nav-wrapper light-green accent-3">
-			<a href="www.theringer.com/nba" class="brand-logo">Ringer NBA</a>
+			<a href="https://www.theringer.com/nba" class="brand-logo" target="blank">Ringer NBA</a>
 			<ul id="nav-mobile" class="right hide-on-med-and-down">
 				<li><a href="/">Home</a></li>
 				<li><a href="/saved">Saved Articles</a></li>
@@ -22,8 +21,33 @@
 			</div>
 		</nav>
 		{{{ body }}}
-			<script type="text/javascript" src="js/materialize.min.js"></script>
 			<script  src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
   crossorigin="anonymous"></script>
 	</body>
 </html>
+<script>
+	$(function() {  
+
+    $(document).on("click", "#commentBtn", function(){
+        alert("commentBtn");
+    });
+
+	$(document).on("click", "#deleteBtn", function(){
+		const thisId= ($(this).parent().attr("data-id"));
+		console.log(thisId)
+		$.ajax({
+			method: "DELETE",
+			url: "/articles/" + thisId
+		})
+	});
+
+	$(document).on("click", "#saveBtn", function(){
+		const thisId= ($(this).attr("data-id"));
+		console.log("thisID: "+ thisId)
+		$.ajax({
+			method: "PUT",
+			url: "/articles/" + thisId
+		});
+	})
+})
+</script>
